@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ClerkProvider } from "@clerk/nextjs";
+import Provider from "./provider";
 
 const AppFont = Noto_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -26,9 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en">
-      <body className={AppFont.className}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" >
+        <body className={AppFont.className}>
+          <Provider>{children}</Provider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

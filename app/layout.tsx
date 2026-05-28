@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Noto_Sans, Geist } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { ClerkProvider } from "@clerk/nextjs";
+import Provider from "./provider";
+import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = Geist({
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
+const geistSans = Noto_Sans({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+const geistMono = Noto_Sans({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
@@ -23,11 +29,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={cn("font-sans", geist.variable)} >
+        <body className={geist.className}>
+          <Provider>{children}</Provider>
+          <Toaster position = "top-center"/>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

@@ -8,8 +8,6 @@ import CourseList from "./_components/CourseList";
 export default function Home() {
   return (
     <div>
-      <Header/>
-
       <div className="absolute -bottom-40 -left-40
       h-[500px] w-[500px] bg-purple-400/20 blur-[120px] rounded-full" />
       <div className="absolute top-20 left-1/3 bottom-[-200px]

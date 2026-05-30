@@ -5,7 +5,7 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupTextarea,
-} from "@/components/ui/input-group"
+} from "@/components/ui/input-group"  
 import { Loader2, Send } from "lucide-react";
 import { SignInButton, useUser } from "@clerk/nextjs";
 
@@ -21,25 +21,40 @@ import { VIDEO_SUGGESTIONS } from "@/data/constant";
 import axios from "axios";
 import { toast } from "sonner";
 
+import { useRouter } from "next/navigation";
+
 function Hero(){
 
     const [userInput, setUserInput] = useState("");
     const [type , setType] = useState("full-course");
     const [loading, setLoading] = useState(false);
     const {user} = useUser();
+    const router = useRouter() ; 
 
     const GenerateCourseLayout = async () => {
       setLoading(true);
       const toastId = toast.loading("Generating course layout...");
+      const courseId = await crypto.randomUUID();
+      try{
+        const result = await axios.post("/api/generate-course-layout", {
+          userInput,
+          type ,
+          courseId: courseId
+        });
+        console.log(result.data);
 
-      const result = await axios.post("/api/generate-course-layout", {
-        userInput,
-        type
-      });
-      console.log(result.data);
+        setLoading(false);
+        toast.success("Course layout generated successfully!", { id: toastId });
 
-      setLoading(false);
-      toast.success("Course layout generated successfully!", { id: toastId });
+        // navigate to course editor page
+        router.push('/course/' + courseId)
+
+      } catch(error){
+          setLoading(false);
+          console.log(error)
+          toast.error("Something went wrong. Please try again " , {id: toastId})
+      };
+    
     }
 
     return(

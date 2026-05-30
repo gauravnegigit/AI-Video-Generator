@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { UserDetailContext } from "@/context/UserDetailContext";
+import Header from "./_components/Header";
 
 function Provider({ children }: { children: React.ReactNode }) {
 
@@ -20,6 +21,7 @@ function Provider({ children }: { children: React.ReactNode }) {
     return (
     <div>
         <UserDetailContext.Provider value={{ userDetail , setUserDetail }}>
+            <Header/>
             {children}
         </UserDetailContext.Provider>
     </div>

@@ -3,7 +3,7 @@ import {usersTable} from '@/config/schema'
 import {currentUser} from '@clerk/nextjs/server'
 import {NextRequest} from 'next/server'
 import {NextResponse} from 'next/server'
-import {eq} from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 
 export async function POST(req: NextRequest){
     const user = await currentUser();

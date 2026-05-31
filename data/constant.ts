@@ -30,3 +30,4 @@ export const VIDEO_SUGGESTIONS = [
         prompt : "Generate a beginner friendly video tutorial on Node.js introduction, covering setup, modules, and basic server creation."
     }
 ]
+
